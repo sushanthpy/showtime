@@ -20,3 +20,8 @@ class SearchForm(forms.Form):
     date = forms.DateTimeField()  
       
 
+class OrderForm(forms.ModelForm):
+    """Order form for showtime."""
+    class Meta:
+        model = models.TicketOrder
+        exclude = ('movie_name', 'location', 'order_date', 'seat_numbers', 'show_time')

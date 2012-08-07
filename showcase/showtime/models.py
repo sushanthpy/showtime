@@ -88,10 +88,10 @@ class TicketOrder(models.Model):
   location = models.ForeignKey(Cities, db_column='Location')
   name = models.CharField(max_length=255, verbose_name='Name')
   email_id = models.CharField(max_length=255, verbose_name='Email')
-  phone = models.CharField(max_length=255, verbose_name='phone')
-  seat_numbers = models.CharField(max_length=255, verbose_name='Screen')
+  phone = models.CharField(max_length=255, verbose_name='Phone')
+  seat_numbers = models.CharField(max_length=255, verbose_name='Seat Number')
   show_time = models.DateTimeField('Date Time')
-  
+  order_date = models.DateTimeField('Order form')
   class Meta:
       db_table = 'ticket_order' 
   

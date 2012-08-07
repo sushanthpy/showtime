@@ -59,7 +59,7 @@ def BookTickets(request, movie_id=None):
             'movie': get_move_name, 'form': form}
 
 
-@csrf_exempt
+
 @decorator.Render('showtime/checkout.html')
 def CheckOut(request):
     """View for booking tickets.
@@ -70,10 +70,9 @@ def CheckOut(request):
     Returns:
      {data}
     """
-    text = "Hello World"
-    if request.POST:
-        return http.HttpResponse("Okay")
-    return {'data': text}
+    form = forms.OrderForm()
+    return {'form': form}
+
 
 @csrf_exempt
 def Data(request):
