@@ -89,7 +89,6 @@ class TicketOrder(models.Model):
   name = models.CharField(max_length=255, verbose_name='Name')
   email_id = models.CharField(max_length=255, verbose_name='Email')
   phone = models.CharField(max_length=255, verbose_name='phone')
-  location = models.CharField
   seat_numbers = models.CharField(max_length=255, verbose_name='Screen')
   show_time = models.DateTimeField('Date Time')
   
