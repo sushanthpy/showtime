@@ -1,0 +1,51 @@
+{% extends "showtime/base.html" %}
+{% block extra_js %}
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.1/jquery.js"></script>
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.14/jquery-ui.min.js"></script>
+    <link rel="stylesheet" type="text/css" media="screen" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.14/themes/base/jquery-ui.css">
+<script src="http://trentrichardson.com/examples/timepicker/jquery-ui-timepicker-addon.js"></script>
+<script type="text/javascript">
+$(function(){
+$('#id_date').datetimepicker({
+	minDate: new Date(2012, 07, 11, 10, 30),
+	maxDate: new Date(2012, 07, 15, 21, 30)
+});
+});
+</script>
+{% endblock %}
+{% block content %}
+{% load tags %}
+    <br/>
+<!--content -->			
+<article id="content">
+        <div class="iconHolder">
+          <div id="img_slider">
+            <ul id="menuk" class="menuk">
+            <form action='.' method=POST>
+            {% csrf_token %}
+          {{ form }}
+          <input type='submit' values='Submit'>  
+          </form>
+         {{ movie }}
+         <br/>
+         <table>
+         <tr>
+         <th> Showing Now </th>
+         <th> Show Time </th>
+         </tr>
+         <tr>
+            {% for i in data.items %}
+            <td>
+            {{ i.0 }} </td>
+            <td>
+            {% for items in screens %}
+            {{ i.1|hash:items }}
+            {% endfor %}   
+            
+            </td>
+            </tr>
+            {% endfor %}
+            
+            </table>
+</article>
+{% endblock %}            

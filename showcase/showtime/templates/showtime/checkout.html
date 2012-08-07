@@ -1,0 +1,200 @@
+{% extends "showtime/base.html" %}
+{% block extra_js %}
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.1/jquery.js"></script>
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.14/jquery-ui.min.js"></script>
+    <link rel="stylesheet" type="text/css" media="screen" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.14/themes/base/jquery-ui.css">
+<script src="http://trentrichardson.com/examples/timepicker/jquery-ui-timepicker-addon.js"></script>
+{% endblock %}
+{% block content %}
+    <script src="Scripts/jquery-1.4.1.min.js" type="text/javascript"></script>
+    <style type="text/css">
+        #mask
+        {
+            position: fixed;
+            left: 0px;
+            top: 0px;
+            z-index: 4;
+            opacity: 0.4;
+            -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=40)"; /* first!*/
+            filter: alpha(opacity=40); /* second!*/
+            background-color: gray;
+            display: none;
+            width: 100%;
+            height: 100%;
+        }
+        #holder
+        {
+            height: 400px;
+            width: 650px;
+            background-color: #F5F5F5;
+            border: 1px solid #A4A4A4;
+            margin-left: 30px;
+        }
+        #place
+        {
+            position: relative;
+            margin: 40px;
+        }
+        #place a
+        {
+            font-size: 0.6em;
+        }
+        #place li
+        {
+            list-style: none outside none;
+            position: absolute;
+        }
+        #place li:hover
+        {
+            background-color: yellow;
+        }
+        #place .seat
+        {
+            background: url("{{ STATIC_URL }}images/available_seat_img.gif") no-repeat scroll 0 0 transparent;
+            height: 33px;
+            width: 33px;
+            display: block;
+        }
+        #place .selectedSeat
+        {
+            background-image: url("{{ STATIC_URL }}images/booked_seat_img.gif");
+        }
+        #place .selectingSeat
+        {
+            background-image: url("{{ STATIC_URL }}images/selected_seat_img.gif");
+        }
+        #place .row-3, #place .row-4
+        {
+            margin-top: 10px;
+        }
+        
+        #seatDescription li
+        {
+            list-style: none outside none;
+            padding-left: 35px;
+            height: 35px;
+            margin-top: 5px;
+            float: left;
+        }
+        .popUp label
+        {
+            width: 4em;
+            float: left;
+            text-align: right;
+            margin-right: 0em;
+            display: block;
+        }
+        .popUp input
+        {
+        }
+    </style>
+</head>
+<body>
+    <form id="form1" runat="server">
+    <div id="mask">
+    </div>
+    <h5> Choose seats by clicking the corresponding seat in the layout below:</h5>
+    <div id="holder">
+        <ul  id="place">
+        </ul>
+    </div>
+    <div style="float:left;">
+    <ul id="seatDescription">
+        <li style="background:url('{{ STATIC_URL }}images/available_seat_img.gif') no-repeat scroll 0 0 transparent;">Available Seat</li>
+        <li style="background:url('{{STATIC_URL}}images/booked_seat_img.gif') no-repeat scroll 0 0 transparent;">Booked Seat</li>
+        <li style="background:url('{{STATIC_URL}}images/selected_seat_img.gif') no-repeat scroll 0 0 transparent;">Selected Seat</li>
+    </ul>
+    </div>
+        <div style="clear:both;width:100%">
+        <input type="button" id="btnShowNew" value="Show Selected Seats" />
+        <input type="button" id="btnShow" value="Show All" />
+        </div>
+    <div style="clear:both;padding-top:25px;">
+       
+    </div>
+
+    
+    <script type="text/javascript">
+
+      var settings = {
+               rows: 10,
+               cols: 15,
+               rowCssPrefix: 'row-',
+               colCssPrefix: 'col-',
+               seatWidth: 35,
+               seatHeight: 35,
+               seatCss: 'seat',
+               selectedSeatCss: 'selectedSeat',
+               selectingSeatCss: 'selectingSeat'
+           };
+        var chargePerSheet;
+        init = function (reservedSeat) {
+                var str = [], seatNo, className;
+                for (i = 0; i < settings.rows; i++) {
+                    for (j = 0; j < settings.cols; j++) {
+                        seatNo = (i + j * settings.rows + 1);
+                        className = settings.seatCss + ' ' + settings.rowCssPrefix + i.toString() + ' ' + settings.colCssPrefix + j.toString();
+                        if ($.isArray(reservedSeat) && $.inArray(seatNo, reservedSeat) != -1) {
+                            className += ' ' + settings.selectedSeatCss;
+                        }
+                        str.push('<li class="' + className + '"' +
+                                  'style="top:' + (i * settings.seatHeight).toString() + 'px;left:' + (j * settings.seatWidth).toString() + 'px">' +
+                                  '<a title="' + seatNo + '">' + seatNo + '</a>' +
+                                  '</li>');
+                    }
+                }
+                $('#place').html(str.join(''));
+            };
+            //case I: Show from starting
+            init();
+ 
+            //Case II: If already booked
+            //var bookedSeats = [5, 10, 25];
+            //init(bookedSeats);
+            
+
+       $('.' + settings.seatCss).click(function () {
+if ($(this).hasClass(settings.selectedSeatCss)){
+    alert('This seat is already reserved');
+}
+else{
+    $(this).toggleClass(settings.selectingSeatCss);
+    }
+});
+ 
+$('#btnShow').click(function () {
+    var str = [];
+    $.each($('#place li.' + settings.selectedSeatCss + ' a, #place li.'+ settings.selectingSeatCss + ' a'), function (index, value) {
+        str.push($(this).attr('title'));
+    });
+    alert(str);
+})
+ 
+$('#btnShowNew').click(function () {
+    var str = [], item;
+    $.each($('#place li.' + settings.selectingSeatCss + ' a'), function (index, value) {
+        item = $(this).attr('title');
+        str.push(item);
+    });
+   $.ajax({
+            url: '/data/',
+            type: 'POST',
+            data: {'kk': str}, // An object with the key 'submit' and value 'true;
+            success: function (str) {
+              alert("Your tickets are booked \n"+ str);
+            }
+        });  
+    
+})
+    </script>
+
+<div id='result'></div>
+<div id='modal'>
+    <div id='content'>No JavaScript Yet!</div>
+    <a href='#' id='close'>close</a>
+</div>
+    
+{% endblock %}
+    </form>
+</body>
+</html>

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title></title>
+<meta charset="utf-8">
+<link rel="stylesheet" href="{{ STATIC_URL }}css/reset.css" type="text/css" media="all">
+<link rel="stylesheet" href="{{ STATIC_URL }}css/layout.css" type="text/css" media="all">
+<link rel="stylesheet" href="{{ STATIC_URL }}css/style.css" type="text/css" media="all">
+<link rel="stylesheet" href="{{ STATIC_URL }}css/jquery.fancybox-1.3.4.css" type="text/css" media="all">
+<link href='http://fonts.googleapis.com/css?family=Open+Sans:400italic,600italic,400,600,300' rel='stylesheet' type='text/css'>
+<script type="text/javascript" src="{{ STATIC_URL }}js/jquery-1.7.1.js" ></script>
+<script type="text/javascript" src="{{ STATIC_URL }}js/jquery.easing.1.3.js"></script>
+<script type="text/javascript" src="{{ STATIC_URL }}js/jquery-ui-1.8.11.custom.min.js"></script>
+<script type="text/javascript" src="{{ STATIC_URL }}js/jquery.transform-0.9.3.min.js"></script>
+<script type="text/javascript" src="{{ STATIC_URL }}js/jquery.animate-colors-min.js"></script>
+<script type="text/javascript" src="{{ STATIC_URL }}js/mathUtils.js"></script>
+<script type="text/javascript" src="{{ STATIC_URL }}js/hoverSprite.js"></script>
+<script type="text/javascript" src="{{ STATIC_URL }}js/superfish.js"></script>
+<script type="text/javascript" src="{{ STATIC_URL }}js/switcher.js"></script>
+<script type="text/javascript" src="{{ STATIC_URL }}js/jquery.mousewheel.js"></script>
+<script type="text/javascript" src="{{ STATIC_URL }}js/sprites.js"></script>
+<script type="text/javascript" src="{{ STATIC_URL }}js/cScroll.js"></script>
+<script type="text/javascript" src="{{ STATIC_URL }}js/forms.js"></script>
+<script type="text/javascript" src="{{ STATIC_URL }}js/jquery.fancybox-1.3.4.pack.js"></script>
+<script type="text/javascript" src="{{ STATIC_URL }}js/gallery.js"></script>
+<script type="text/javascript" src="{{ STATIC_URL }}js/googleMap.js"></script>
+<script type="text/javascript" src="{{ STATIC_URL }}js/scripts.js"></script>
+{% block extra_js %}{% endblock %}
+</head>
+
+<body>
+<div class="glob">
+<div class="page_spinner"></div>  
+<div class="main">
+    <div class="center"> 
+   <!--header -->                   
+ <div class="headerHolder">
+       <header>
+       <div class="logoHolder">
+            <h1><a href="#!/pageGallery" id="logo">ShowTime</a></h1>
+       </div>
+        </header>
+        <div class="followHolder">
+                        <span>Call Us: 123-456-7890</span>
+                            <ul>
+                                <li><a href="#"><img src="{{ STATIC_URL }}{{ STATIC_URL }}images/followIcon1.png" alt=""></a></li>
+                                <li><a href="#"><img src="{{ STATIC_URL }}{{ STATIC_URL }}images/followIcon2.png" alt=""></a></li>
+                                <li><a href="#"><img src="{{ STATIC_URL }}images/followIcon3.png" alt=""></a></li>
+                        
+                            </ul>
+                        </div>
+ </div>
+ {% block content %}{% endblock %}
+ <!--content end-->
+                  <!--footer -->
+            <footer>
+				<!-- {%FOOTER_LINK} -->
+                <div class="mainFooter">
+                <div class="privHold">
+                     <pre class="textPrivacy">&copy; 2012 ShowTime<br></pre>
+                 </div>
+                 </div>
+			</footer>
+           	<!--footer end-->
+            </div>
+		</div>
+</div>
+<script>
+$(window).load(function() {	
+	$('.page_spinner').fadeOut();
+	$('body').css({overflow:'auto', 'min-height':'800px'})
+})
+</script>
+</body>
+</html>

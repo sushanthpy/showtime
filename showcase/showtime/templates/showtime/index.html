@@ -1,0 +1,61 @@
+{% extends "showtime/base.html" %}
+{% block content %}
+    <h1> SHOWING NOW </h1>
+    <br/>
+<!--content -->			
+<article id="content">
+        <div class="iconHolder">
+          <div id="img_slider">
+            <ul id="menuk" class="menuk">
+                  {% for i in data %}
+              {% if forloop.counter|divisibleby:1 %}<li> 
+			<div class="picHold"><a href="#!/{{ i.id }}"><span class="overPlane"></span><img src="{{ STATIC_URL }}{{ i.photo }}" alt="" height=480 width=240></a></div>
+			  {% else %}</li>{% endif %}
+			{% endfor %}    
+            </ul>
+        </div>
+            <a href="#" id="next"><img src="{{ STATIC_URL }}images/gallNext1.png" alt=""></a>
+            <a href="#" id="prev"><img src="{{ STATIC_URL }}images/gallPrev1.png" alt=""></a>
+    </div>
+					<ul>
+					{% for fetch in data %}
+                     <li id="{{ fetch.id }}">
+					   <div class="box">
+                            <div class="closePlane">
+                            <script type="text/javascript">
+								function reloadPage()
+  								{
+  									window.location.reload()
+  								}
+							</script>
+                            
+                                <a class="closeButton" href=""><img src="{{ STATIC_URL }}images/closeIcon.png" alt=""></a>
+                            </div>
+                            <div class="containerContent">
+                                <h2>{{fetch.name }}</h2>
+                            <div class="col1 padBot1">
+                                    <figure class="_fig1">
+                                        <img src="{{ fetch.photo }}" alt="" height='150' width='150'>
+                                        <br/>
+                                        <a class="moreButton" href="book/{{ fetch.id }}">Book Tickets</a>
+                                    </figure>
+                                    <div class="col2">
+                                        <p>{{ fetch.story_line }}</p>
+                                        <font color='White'> 
+                           <b>Movie Release Date:</b> {{ fetch.release_date }} <br/>
+                           <b>Director          :</b> {{ fetch.director }} <br/>
+                           <b>Write             :</b> {{ fetch.writer }} <br/>
+                           <b>Duration            :</b> {{ fetch.length }} <br/>
+                           </font>
+                                    </div>
+                                </div>
+                                  
+                            </div>
+                       </div>		
+					</li>
+					
+                    {% endfor %}
+                </ul>    
+			</article>
+{% endblock %}
+			
