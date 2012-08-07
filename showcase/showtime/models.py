@@ -84,10 +84,12 @@ class ShowTimes(models.Model):
     
   
 class TicketOrder(models.Model):
-  movie_name = models.ForeignKey(Cities, db_column='moviename', related_name='Name')
+  movie_name = models.ForeignKey(Movies, db_column='moviename', related_name='Name')
+  location = models.ForeignKey(Cities, db_column='Location')
   name = models.CharField(max_length=255, verbose_name='Name')
   email_id = models.CharField(max_length=255, verbose_name='Email')
   phone = models.CharField(max_length=255, verbose_name='phone')
+  location = models.CharField
   seat_numbers = models.CharField(max_length=255, verbose_name='Screen')
   show_time = models.DateTimeField('Date Time')
   
